@@ -19,8 +19,8 @@ if (nbrtach < 100  ){
 	printf("entrer le nome de tache");
 	scanf("%s",tableau[nbrtach].Tname);
 	printf("entrer la priorite du tache");
-	scanf("%d",tableau[nbrtach].Priorite);
-	printf("entrer le nome de tache");
+	scanf("%d",&tableau[nbrtach].Priorite);
+	printf("entrer la Description de tache");
 	scanf("%s",tableau[nbrtach].Description);
 	printf("Entrez la date de la tache (jour mois annee): ");
 	scanf("%d %d %d",&tableau[nbrtach].tdate.jours,&tableau[nbrtach].tdate.mois,&tableau[nbrtach].tdate.annee);
@@ -48,8 +48,8 @@ int main() {
 	printf("3.pour  Modifier une Tache:\n");
 	printf("4.pour Supprimer une Tache :\n");
 	printf("5.pour  Ordonner les Taches:\n");
-	printf("5.pour Filtrer les Taches  :\n");
-	printf("6.pour Quitter  :\n");
+	printf("6.pour Filtrer les Taches  :\n");
+	printf("7.pour Quitter  :\n");
 	scanf("%d", &choix);
 	 switch (choix) {
             case 1:
@@ -72,6 +72,7 @@ int main() {
                 break;
             case 7:
                 // Ajoutez le code pour quitter le programme
+                
                 return 0;
             default:
                 printf("Choix invalide. Veuillez choisir un nombre entre 1 et 7.\n");
