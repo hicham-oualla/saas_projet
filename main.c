@@ -13,17 +13,18 @@
  	struct Date tdate;
  	
  }Tach;
+ int nbrtach = 0;
 // la founction dajoute
-int ajoutertache(Tach tableau[],int nbrtach) {
+int ajoutertache(Tach tableau[]) {
 if (nbrtach < 100  ){
-	printf("entrer le nome de tache");
+	printf("entrer le nome de tache :\n");
 	scanf("%s",tableau[nbrtach].Tname);
-	printf("entrer la priorite du tache");
+	printf("entrer la priorite du tache 0= low ,1= medium ,2= high :\n");
 	scanf("%d",&tableau[nbrtach].Priorite);
-	printf("entrer la Description de tache");
+	printf("entrer la Description de tache:\n");
 	scanf("%s",tableau[nbrtach].Description);
-	printf("Entrez la date de la tache (jour mois annee): ");
-	scanf("%d %d %d",&tableau[nbrtach].tdate.jours,&tableau[nbrtach].tdate.mois,&tableau[nbrtach].tdate.annee);
+	//printf("Entrez la date de la tache (jour mois annee):\n ");
+	//scanf("%d %d %d",&tableau[nbrtach].tdate.jours,&tableau[nbrtach].tdate.mois,&tableau[nbrtach].tdate.annee);
 //incrementation	
 	nbrtach++ ;
 	printf("la tache a ete ajouter ");
@@ -33,13 +34,49 @@ else
 }
 
 
+//fouction afficher
+// Fonction pour afficher les tâches
+void afficher_tach(Tach tableau[] ) {
+    int i;
+    for (i = 0; i < nbrtach; i++) {
+        printf("Tache %d :\n", i + 1);
+        printf("Nom : %s\n", tableau[i].Tname);
+        printf("Priorite : %d\n", tableau[i].Priorite);
+        //   %[^\n]     ; pour une descrition avec espace
+        printf("Description : %s\n", tableau[i].Description);
+       // printf("Date : %d-%d-%d\n", tableau[i].tdate.jours, tableau[i].tdate.mois, tableau[i].tdate.annee);
+        printf("\n");
+    }
+}
+
+void supprimertache(Tach tableau[]) {
+    int index;
+    printf("Entrez le numéro de la tâche à supprimer :\n");
+    scanf("%d", &index);
+
+    if (index >= 1 && index <= nbrtach) {
+        // Décaler les tâches suivantes vers la gauche pour remplir l'emplacement supprimé
+        int i;
+		for (i = index - 1; i < nbrtach - 1; i++) {
+            tableau[i] = tableau[i + 1];
+        }
+
+        // Décrémenter le nombre de tâches après la suppression
+        nbrtach--;
+
+        printf("La tâche a été supprimée.\n");
+    } else {
+        printf("Numéro de tâche invalide.\n");
+    }
+}
+
 
 
 
 
 int main() {
 	 Tach tableau[100];
-	 int nbr;
+	 
 	int choix;
 	while(1){
 	printf("l'espace de gestion des taches\n\n");
@@ -53,16 +90,17 @@ int main() {
 	scanf("%d", &choix);
 	 switch (choix) {
             case 1:
-                // Ajoutez le code pour afficher la liste des tâches
+                afficher_tach(tableau);
                 break;
             case 2:
-            	ajoutertache(tableau,nbr);
+            	ajoutertache(tableau);
+            	
                 break;
             case 3:
                 // Ajoutez le code pour modifier une tâche
                 break;
             case 4:
-                // Ajoutez le code pour supprimer une tâche
+                supprimertache(tableau);
                 break;
             case 5:
                 // Ajoutez le code pour ordonner les tâches
