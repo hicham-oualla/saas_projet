@@ -1,8 +1,10 @@
 #include<stdio.h>
+// 0,1,2: poure le choix de priorite
 #define LOW 0 
 #define MEDIUM 1
 #define HIGH 2
-// 0,1,2: poure le choix de priorite
+
+
  struct Date {
  	int jours,mois,annee ;
  };
@@ -13,7 +15,10 @@
  	struct Date tdate;
  	
  }Tach;
+ //v.globale
  int nbrtach = 0;
+  int index;
+  
 // la founction dajoute
 int ajoutertache(Tach tableau[]) {
 if (nbrtach < 100  ){
@@ -22,9 +27,10 @@ if (nbrtach < 100  ){
 	printf("entrer la priorite du tache 0= low ,1= medium ,2= high :\n");
 	scanf("%d",&tableau[nbrtach].Priorite);
 	printf("entrer la Description de tache:\n");
-	scanf("%s",tableau[nbrtach].Description);
-	//printf("Entrez la date de la tache (jour mois annee):\n ");
-	//scanf("%d %d %d",&tableau[nbrtach].tdate.jours,&tableau[nbrtach].tdate.mois,&tableau[nbrtach].tdate.annee);
+	//   %[^\n]     ; pour une descrition avec espace
+	scanf(" %[^\n]s",tableau[nbrtach].Description);
+	printf("Entrez la date de la tache (jour mois annee):\n ");
+	scanf("%d %d %d",&tableau[nbrtach].tdate.jours,&tableau[nbrtach].tdate.mois,&tableau[nbrtach].tdate.annee);
 //incrementation	
 	nbrtach++ ;
 	printf("la tache a ete ajouter ");
@@ -34,7 +40,7 @@ else
 }
 
 
-//fouction afficher
+
 // Fonction pour afficher les tâches
 void afficher_tach(Tach tableau[] ) {
     int i;
@@ -42,15 +48,34 @@ void afficher_tach(Tach tableau[] ) {
         printf("Tache %d :\n", i + 1);
         printf("Nom : %s\n", tableau[i].Tname);
         printf("Priorite : %d\n", tableau[i].Priorite);
-        //   %[^\n]     ; pour une descrition avec espace
         printf("Description : %s\n", tableau[i].Description);
-       // printf("Date : %d-%d-%d\n", tableau[i].tdate.jours, tableau[i].tdate.mois, tableau[i].tdate.annee);
+       printf("Date : %d-%d-%d\n", tableau[i].tdate.jours, tableau[i].tdate.mois, tableau[i].tdate.annee);
         printf("\n");
     }
 }
+// founction de modifier 
+void modifier_tach(Tach tableau[]){
+	printf("enter le numero de tache pour modifier :\n");
+	scanf("%d",&index);
+	if (index >=1 &&index<= nbrtach) {
+		printf("entrer le nouveau nom de tach :\n");
+		scanf("%s",tableau[index-1].Tname);
+		printf("entrer la  nouveau priorite du tache 0= low ,1= medium ,2= high :\n");
+	    scanf("%d",&tableau[index-1].Priorite);
+	    printf("Nouveau description : %s\n", tableau[index-1].Description);
+       printf("Nouveau date : %d-%d-%d\n", tableau[index-1].tdate.jours, tableau[index-1].tdate.mois, tableau[index-1].tdate.annee);
+        printf("\n");
+	}
+	else{
+		printf("numero invalid :\n");
+	}
+	
+}
+
+// founction de supprimer une tach 
 
 void supprimertache(Tach tableau[]) {
-    int index;
+   
     printf("Entrez le numéro de la tâche à supprimer :\n");
     scanf("%d", &index);
 
@@ -61,7 +86,7 @@ void supprimertache(Tach tableau[]) {
             tableau[i] = tableau[i + 1];
         }
 
-        // Décrémenter le nombre de tâches après la suppression
+        // Décrémentation
         nbrtach--;
 
         printf("La tâche a été supprimée.\n");
@@ -97,7 +122,7 @@ int main() {
             	
                 break;
             case 3:
-                // Ajoutez le code pour modifier une tâche
+                modifier_tach(tableau);
                 break;
             case 4:
                 supprimertache(tableau);
@@ -109,8 +134,6 @@ int main() {
                 // Ajoutez le code pour filtrer les tâches
                 break;
             case 7:
-                // Ajoutez le code pour quitter le programme
-                
                 return 0;
             default:
                 printf("Choix invalide. Veuillez choisir un nombre entre 1 et 7.\n");
@@ -122,4 +145,4 @@ int main() {
 	
 	
 	return 0;
-}
+}i_
