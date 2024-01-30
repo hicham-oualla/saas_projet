@@ -1,8 +1,5 @@
 #include<stdio.h>
-// 0,1,2: poure le choix de priorite
-#define LOW 0 
-#define MEDIUM 1
-#define HIGH 2
+
 
 
  struct Date {
@@ -63,8 +60,10 @@ void modifier_tach(Tach tableau[]){
 		printf("entrer la  nouveau priorite du tache 0= low ,1= medium ,2= high :\n");
 	    scanf("%d",&tableau[index-1].Priorite);
 	    printf("Nouveau description : %s\n", tableau[index-1].Description);
+	    scanf(" %[^\n]s",tableau[index-1].Description);
        printf("Nouveau date : %d-%d-%d\n", tableau[index-1].tdate.jours, tableau[index-1].tdate.mois, tableau[index-1].tdate.annee);
-        printf("\n");
+       
+	    printf("\n");
 	}
 	else{
 		printf("numero invalid :\n");
@@ -94,14 +93,45 @@ void supprimertache(Tach tableau[]) {
         printf("Numéro de tâche invalide.\n");
     }
 }
+// founction poure trier par date
+void trierTaches(Tach tableau[],  int ordre) {
+  int i , j;
+    for ( i = 0; i < nbrtach - 1; i++) {
+        for (j = 0; j < nbrtach - i - 1; j++) {
+            // Comparaison des dates en fonction de l'ordre sélectionné
+            int resultatComparaison;
+            if (ordre == 1) {
+                resultatComparaison = (tableau[j].tdate.annee > tableau[j + 1].tdate.annee) ||
+                                      (tableau[j].tdate.annee == tableau[j + 1].tdate.annee &&
+                                       tableau[j].tdate.mois > tableau[j + 1].tdate.mois) ||
+                                      (tableau[j].tdate.annee == tableau[j + 1].tdate.annee &&
+                                       tableau[j].tdate.mois == tableau[j + 1].tdate.mois &&
+                                       tableau[j].tdate.jours > tableau[j + 1].tdate.jours);
+            } else {
+                resultatComparaison = (tableau[j].tdate.annee < tableau[j + 1].tdate.annee) ||
+                                      (tableau[j].tdate.annee == tableau[j + 1].tdate.annee &&
+                                       tableau[j].tdate.mois < tableau[j + 1].tdate.mois) ||
+                                      (tableau[j].tdate.annee == tableau[j + 1].tdate.annee &&
+                                       tableau[j].tdate.mois == tableau[j + 1].tdate.mois &&
+                                       tableau[j].tdate.jours < tableau[j + 1].tdate.jours);
+            }
 
-
+            if (resultatComparaison) {
+                // Échanger les tâches si elles ne sont pas dans le bon ordre
+                Tach temp = tableau[j];
+                tableau[j] = tableau[j + 1];
+                tableau[j + 1] = temp;
+            }
+        }
+    }
+}
+// fouction de filter par Priorite
 
 
 
 int main() {
 	 Tach tableau[100];
-	 
+	 int order;
 	int choix;
 	while(1){
 	printf("l'espace de gestion des taches\n\n");
@@ -128,8 +158,16 @@ int main() {
                 supprimertache(tableau);
                 break;
             case 5:
-                // Ajoutez le code pour ordonner les tâches
+                printf("1. Trier par date croissante\n");
+                printf("2. Trier par date decroissante\n");
+                printf("Entrez votre choix : ");
+                scanf("%d", &order);
+                trierTaches(tableau, order);
+                printf("\n");
+                printf(" > Taches triees.\n");
+                printf("\n");
                 break;
+                
             case 6:
                 // Ajoutez le code pour filtrer les tâches
                 break;
@@ -145,4 +183,4 @@ int main() {
 	
 	
 	return 0;
-}i_
+}
