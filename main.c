@@ -126,7 +126,17 @@ void trierTaches(Tach tableau[],  int ordre) {
     }
 }
 // fouction de filter par Priorite
-
+void filtrer(Tach tableau[]){
+	int f_choix ,i;
+	printf("choisi la priorite que vous voulez :\n");
+	scanf("%d",&f_choix);
+	printf("le resultat fe filtrage :\n");
+	for(i=0 ;i<nbrtach ;i++){
+		if(tableau[i].Priorite==f_choix){
+			printf("%s \n",tableau[i].Tname);
+		}
+	}
+}
 
 
 int main() {
@@ -169,7 +179,7 @@ int main() {
                 break;
                 
             case 6:
-                // Ajoutez le code pour filtrer les tâches
+                filtrer(tableau);
                 break;
             case 7:
                 return 0;
